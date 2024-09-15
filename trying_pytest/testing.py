@@ -1,5 +1,6 @@
 import pytest
 from my_func import func, shapes
+import time
 
 
 def test_passing():
@@ -61,4 +62,27 @@ class TestRectangle:
     def test_rect(self, my_rectangle, my_rectangle2):
         assert my_rectangle != my_rectangle2
         assert my_rectangle == shapes.Rectangle(10, 20)
+
+
+@pytest.mark.slow
+def test_slow():
+    time.sleep(5)
+    result = func.add(1, 2)
+    assert result == 3
+
+
+@pytest.mark.skip(reason="This test is currently broken ")
+def skip_test():
+    assert func.add(1, 2) == 3
+
+
+@pytest.mark.xfail(reason="This test is impossible. ")
+def test_impossible():
+    func.divide(3, 0) # no assertions here
+
+
+# Parameterized test
+@pytest.mark.parametrize("side_length, expected_area", [(10, 100), (20, 400), (30, 900)]) # testing all these values
+def test_multiple_square_areas(side_length, expected_area):
+    assert shapes.Square(side_length).area() == expected_area
 

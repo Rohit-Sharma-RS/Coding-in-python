@@ -36,3 +36,13 @@ class Rectangle(Shape):
 
     def perimeter(self):
         return 2 * (self.length + self.breadth)
+
+class Square(Shape):
+    def __init__(self, side):
+        self.side = side
+
+    def area(self):
+        return self.side ** 2
+
+    def perimeter(self):
+        return 4 * self.side
